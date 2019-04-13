@@ -15,10 +15,10 @@ def unique_houses(filename):
     """
     open_file = open(filename)
     houses = set()
-    for item in open_file:
-        item = item.rstrip()
-        my_list = item.split('|')
-        houses.add(my_list[2])
+    for line in open_file:
+        line = line.rstrip()
+        open_file_list = line.split('|')
+        houses.add(open_file_list[2])
     houses.remove('')
     open_file.close()
 
@@ -54,17 +54,17 @@ def sort_by_cohort(filename):
     open_file = open(filename)
     for line in open_file:
         line = line.rstrip()
-        my_list = line.split("|")
-        name = my_list[0] + " " + my_list[1]
-        if my_list[4] == "Winter 2016":
+        open_file_list = line.split("|")
+        name = open_file_list[0] + " " + open_file_list[1]
+        if open_file_list[4] == "Winter 2016":
             winter_16.append(name)
-        elif my_list[4] == "Spring 2016":
+        elif open_file_list[4] == "Spring 2016":
             spring_16.append(name)
-        elif my_list[4] == "Summer 2016":
+        elif open_file_list[4] == "Summer 2016":
             summer_16.append(name)
-        elif my_list[4] == "Fall 2015":
+        elif open_file_list[4] == "Fall 2015":
             fall_15.append(name)
-        elif my_list[4] == "G":
+        elif open_file_list[4] == "G":
             ghosts.append(name)
     all_students += [fall_15] + [winter_16] + [spring_16] +[summer_16] + [ghosts]
       
@@ -99,21 +99,21 @@ def hogwarts_by_house(filename):
     open_file = open(filename)
     for line in open_file:
         line = line.rstrip()
-        my_list = line.split("|")
-        if my_list[2] == "Gryffindor":
-            gryffindor.append(my_list[1])
-        elif my_list[2] == "Hufflepuff":
-            hufflepuff.append(my_list[1])
-        elif my_list[2] == "Ravenclaw":
-            ravenclaw.append(my_list[1])
-        elif my_list[2] == "Slytherin":
-            slytherin.append(my_list[1])
-        elif my_list[2] == "Dumbledore's Army":
-            dumbledores_army.append(my_list[1])
-        elif my_list[4] == "I":
-            instructors.append(my_list[1])
+        open_file_list = line.split("|")
+        if open_file_list[2] == "Gryffindor":
+            gryffindor.append(open_file_list[1])
+        elif open_file_list[2] == "Hufflepuff":
+            hufflepuff.append(open_file_list[1])
+        elif open_file_list[2] == "Ravenclaw":
+            ravenclaw.append(open_file_list[1])
+        elif open_file_list[2] == "Slytherin":
+            slytherin.append(open_file_list[1])
+        elif open_file_list[2] == "Dumbledore's Army":
+            dumbledores_army.append(open_file_list[1])
+        elif open_file_list[4] == "I":
+            instructors.append(open_file_list[1])
         else:
-            ghosts.append(my_list[1])
+            ghosts.append(open_file_list[1])
 
     gryffindor.sort()
     hufflepuff.sort()
@@ -152,11 +152,11 @@ def all_students_tuple_list(filename):
     open_file = open(filename)
     for line in open_file:
         line = line.rstrip()
-        my_list = line.split("|")
-        name = my_list[0] + " " + my_list[1]
-        if my_list[2] != "":
-            studenttuple = (name, my_list[2], my_list[3], my_list[4])
-            student_list.append(studenttuple)
+        open_file_list = line.split("|")
+        name = open_file_list[0] + " " + open_file_list[1]
+        if open_file_list[2]:
+            student_tuple = (name, open_file_list[2], open_file_list[3], open_file_list[4])
+            student_list.append(student_tuple)
 
     
     return student_list
@@ -195,54 +195,56 @@ def find_cohort_by_student_name(student_list):
 # Further Study Questions
 
 
-# def find_name_duplicates(filename):
-#     """TODO: Return a set of student last names that have duplicates.
+def find_name_duplicates(filename):
+    """TODO: Return a set of student last names that have duplicates.
 
-#     Iterate over the data to find any last names that exist across all cohorts.
-#     Use set operations (set math) to create and return a set of these names.
+    Iterate over the data to find any last names that exist across all cohorts.
+    Use set operations (set math) to create and return a set of these names.
 
-#     For example:
-#     >>> find_name_duplicates("cohort_data.txt")
-#     {'Weasley'}
+    For example:
+    >>> find_name_duplicates("cohort_data.txt")
+    {'Weasley'}
 
-#     """
+    """
 
-#     duplicate_names = set()
+    duplicate_names = set()
 
-#     # Code goes here
+    # Code goes here
 
-#     return duplicate_names
+    return duplicate_names
 
 
-# def find_house_members_by_student_name(student_list):
-#     """TODO: Prompt user for a student. Display everyone in their house and cohort.
+def find_house_members_by_student_name(student_list):
+    """TODO: Prompt user for a student. Display everyone in their house and cohort.
 
-#      Prompt the user for the name via the command line and when given a name,
-#      print a statement of everyone in their house in their cohort.
+     Prompt the user for the name via the command line and when given a name,
+     print a statement of everyone in their house in their cohort.
 
-#      Use the list of tuples generated by all_students_tuple_list() to make a
-#      small function that, when given a student's first and last name, prints
-#      students that are in both that student's cohort and that student's house.
+     Use the list of tuples generated by all_students_tuple_list() to make a
+     small function that, when given a student's first and last name, prints
+     students that are in both that student's cohort and that student's house.
 
-#      NOTE: This function isn't included in doctests. Test it by uncommenting the
-#      function call at the bottom of the file.
+     NOTE: This function isn't included in doctests. Test it by uncommenting the
+     function call at the bottom of the file.
 
-#      For example:
+     For example:
 
-#      Choose a student: Hermione Granger
-#      Hermione Granger was in house Gryffindor in the Fall 2015 cohort.
-#      The following students are also in their house:
-#      Seamus Finnigan
-#      Angelina Johnson
-#      Harry Potter
-#      Ron Weasley
-#      Oliver Wood
+     Choose a student: Hermione Granger
+     Hermione Granger was in house Gryffindor in the Fall 2015 cohort.
+     The following students are also in their house:
+     Seamus Finnigan
+     Angelina Johnson
+     Harry Potter
+     Ron Weasley
+     Oliver Wood
 
-#      """
+     """
 
-#     # Code goes here
+    # Code goes here
 
-#     return
+
+
+    return
 
 
 # #############################################################################
